@@ -12,6 +12,6 @@ For tactile perception module:
 
 For simulation:
 1, Get your Abaqus software ready
-2, run ./simulation/abaqus-script.py
+2, Run ./simulation/abaqus-script.py
 
 
