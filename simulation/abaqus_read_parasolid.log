@@ -1,0 +1,34 @@
+
+>>> STEP 0 : PARASOLID SUB TRANSLATOR STARTS.
+>>>          Parasolid Kernel Version = 32.0.152 
+
+>>> STEP 1 : GET A PART/ASSEMBLY IN PARASOLID.
+>>>          Parasolid   FILE = C:/Users/Free/Desktop/dataoutput_new/solid-object_new.x_t 
+>>>          NUT         FILE = temp-solid-object_new-new.enf_abq 
+>>>          NO. OF BODIES    = 1
+>>>          DONE !
+
+>>> STEP 2 : CONVERT TOPOLOGY FROM PARASOLID.
+>>>          DONE !
+
+>>> STEP 3 : CONVERT GEOMETRY FROM PARASOLID.
+>>>          CURVE CONVERSION 
+>>>          SURFACE CONVERSION 
+>>>          POINT CONVERSION 
+>>>          DONE !
+
+>>> STEP 5 : WRITE ELYSIUM NEUTRAL FILE.
+>>>          MAX TOLERANCE 
+>>>              EDGE   = 5.000e-06 mm
+>>>              VERTEX = 1.000e-06 mm
+>>>          DONE !
+
+>>> STEP 6 : INFORMATION ABOUT RESULT.
+>>>          NO. OF SOLIDS  = 1 
+>>>          NO. OF SHEETS  = 0 
+>>>          NO. OF FACES   = 4    (ERROR  0)
+>>>          DONE !
+
+>>> STEP Z : STATUS CODE = 0 
+
+

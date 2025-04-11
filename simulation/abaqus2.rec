@@ -1,0 +1,137 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.openParasolid(fileName=
+    'E:\\Abaqus_temp\\microstructured-sensor\\dataoutput\\solid-object.x_t', 
+    topology=SOLID)
+mdb.models['Model-1'].PartFromGeometryFile(combine=False, dimensionality=
+    THREE_D, geometryFile=mdb.acis, name='solid-object', scale=1.0, type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0)
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(15.0, 0), 
+    point2=(-15, 2.0))
+mdb.models['Model-1'].Part(dimensionality=THREE_D, name='film', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['film'].BaseSolidExtrude(depth=30.0, sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].parts['solid-object'].setValues(space=THREE_D, type=
+    DISCRETE_RIGID_SURFACE)
+mdb.models['Model-1'].parts['solid-object'].RemoveCells(cellList=
+    mdb.models['Model-1'].parts['solid-object'].cells.getSequenceFromMask(
+    mask=('[#1 ]', ), ))
+mdb.models['Model-1'].Material(name='pdms')
+mdb.models['Model-1'].materials['pdms'].Hyperelastic(materialType=ISOTROPIC, n=
+    2, table=((-0.697, 1.08, 0.0, 2.52, 0.0, 0.0, 0.0), ), testData=OFF, type=
+    POLYNOMIAL, volumetricResponse=VOLUMETRIC_DATA)
+mdb.models['Model-1'].HomogeneousSolidSection(material='pdms', name=
+    'pdms-section', thickness=None)
+mdb.models['Model-1'].parts['film'].Set(cells=
+    mdb.models['Model-1'].parts['film'].cells.getSequenceFromMask(('[#1 ]', ), 
+    ), name='Set-film')
+mdb.models['Model-1'].parts['film'].SectionAssignment(offset=0.0, offsetField=
+    '', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['film'].sets['Set-film'], sectionName=
+    'pdms-section', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].rootAssembly.DatumCsysByDefault(CARTESIAN)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='film-1', part=
+    mdb.models['Model-1'].parts['film'])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='solid-object-1'
+    , part=mdb.models['Model-1'].parts['solid-object'])
+mdb.models['Model-1'].rootAssembly.instances['solid-object-1'].translate(
+    vector=(0.0, 0.0, 0.0))
+mdb.models['Model-1'].rootAssembly.translate(instanceList=('solid-object-1', ), 
+    vector=(-15.0, 3.401754, 0.0))
+mdb.models['Model-1'].rootAssembly.translate(instanceList=('solid-object-1', ), 
+    vector=(9, 0.0, 7))
+mdb.models['Model-1'].StaticStep(initialInc=0.01, maxNumInc=1000, minInc=1e-15, 
+    name='Step-1', nlgeom=ON, previous='Initial')
+mdb.models['Model-1'].fieldOutputRequests['F-Output-1'].setValues(timeInterval=
+    0.01, variables=('S', 'PE', 'PEEQ', 'PEMAG', 'LE', 'U', 'RF', 'CF', 
+    'CSTRESS', 'CDISP', 'CFORCE'))
+mdb.models['Model-1'].ContactProperty('IntProp-1')
+mdb.models['Model-1'].interactionProperties['IntProp-1'].NormalBehavior(
+    allowSeparation=ON, constraintEnforcementMethod=DEFAULT, 
+    pressureOverclosure=HARD)
+mdb.models['Model-1'].rootAssembly.Surface(name='m_Surf-1', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['solid-object-1'].faces.getSequenceFromMask(
+    ('[#a ]', ), ))
+mdb.models['Model-1'].rootAssembly.Surface(name='s_Surf-1', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['film-1'].faces.getSequenceFromMask(
+    ('[#2 ]', ), ))
+mdb.models['Model-1'].SurfaceToSurfaceContactStd(adjustMethod=NONE, 
+    clearanceRegion=None, createStepName='Step-1', datumAxis=None, 
+    initialClearance=OMIT, interactionProperty='IntProp-1', main=
+    mdb.models['Model-1'].rootAssembly.surfaces['m_Surf-1'], name='Int-1', 
+    secondary=mdb.models['Model-1'].rootAssembly.surfaces['s_Surf-1'], sliding=
+    FINITE, thickness=ON)
+mdb.models['Model-1'].ConstrainedSketch(gridSpacing=2.12, name='__profile__', 
+    sheetSize=84.85, transform=
+    mdb.models['Model-1'].parts['film'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['film'].faces[3], 
+    sketchPlaneSide=SIDE1, 
+    sketchUpEdge=mdb.models['Model-1'].parts['film'].edges[10], 
+    sketchOrientation=RIGHT, origin=(0.0, 0.5, 15.0)))
+mdb.models['Model-1'].parts['film'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__profile__'])
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-13.0, 13.0), 
+    point2=(13.0, -13.0))
+mdb.models['Model-1'].parts['film'].PartitionFaceBySketch(faces=
+    mdb.models['Model-1'].parts['film'].faces.getSequenceFromMask(('[#8 ]', ), 
+    ), sketch=mdb.models['Model-1'].sketches['__profile__'], sketchUpEdge=
+    mdb.models['Model-1'].parts['film'].edges[10])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].rootAssembly.Set(faces=
+    mdb.models['Model-1'].rootAssembly.instances['film-1'].faces.getSequenceFromMask(
+    ('[#10 ]', ), ), name='Set-1')
+mdb.models['Model-1'].EncastreBC(createStepName='Step-1', localCsys=None, name=
+    'BC-1', region=mdb.models['Model-1'].rootAssembly.sets['Set-1'])
+mdb.models['Model-1'].rootAssembly.Set(faces=
+    mdb.models['Model-1'].rootAssembly.instances['solid-object-1'].faces.getSequenceFromMask(
+    ('[#1 ]', ), ), name='Set-2')
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName='Step-1', 
+    distributionType=UNIFORM, fieldName='', fixed=OFF, localCsys=None, name=
+    'BC-2', region=mdb.models['Model-1'].rootAssembly.sets['Set-2'], u1=0.0, 
+    u2=-2.5, u3=0.0, ur1=0.0, ur2=0.0, ur3=0.0)
+mdb.models['Model-1'].rootAssembly.Set(faces=
+    mdb.models['Model-1'].rootAssembly.instances['film-1'].faces.getSequenceFromMask(
+    ('[#4 ]', ), ), name='Set-contact')
+mdb.models['Model-1'].parts['solid-object'].ReferencePoint(point=
+    mdb.models['Model-1'].parts['solid-object'].InterestingPoint(
+    mdb.models['Model-1'].parts['solid-object'].edges[1], CENTER))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].parts['solid-object'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.6)
+mdb.models['Model-1'].parts['solid-object'].generateMesh()
+mdb.models['Model-1'].parts['film'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.5)
+mdb.models['Model-1'].parts['film'].setElementType(elemTypes=(ElemType(
+    elemCode=C3D8RH, elemLibrary=STANDARD, kinematicSplit=AVERAGE_STRAIN, 
+    hourglassControl=DEFAULT), ElemType(elemCode=C3D6, elemLibrary=STANDARD), 
+    ElemType(elemCode=C3D4, elemLibrary=STANDARD)), regions=(
+    mdb.models['Model-1'].parts['film'].cells.getSequenceFromMask(('[#1 ]', ), 
+    ), ))
+mdb.models['Model-1'].parts['film'].generateMesh()
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Job-1', nodalOutputPrecision=SINGLE, 
+    numCpus=8, numDomains=8, numGPUs=8, numThreadsPerMpiProcess=1, queue=None, 
+    resultsFormat=ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=
+    0, waitMinutes=0)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-1'].waitForCompletion()
+#* ipc_TOO_LITTLE_SENT

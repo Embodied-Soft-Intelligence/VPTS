@@ -1,0 +1,40 @@
+<Description>
+   ABAQUS/ABQcaeG rank 0 received the INTERRUPT signal
+
+</Description>
+
+<Context>
+   ABQcaeG
+</Context>
+
+<Callstack>
+  1)  ucrtbase.dll                perror                                  
+  2)  KERNELBASE.dll              CtrlRoutine                             
+  3)  KERNEL32.DLL                BaseThreadInitThunk                     
+  4)  ntdll.dll                   RtlUserThreadStart                      
+</Callstack>
+
+<Memory>
+   <Current>            0 GB </Current>
+   <Resident>           0 GB </Resident>
+   <Physical>          31 GB </Physical>
+   <Limit>              0 GB </Limit>
+   <Accessible>        31 GB </Accessible>
+   <Available>         17 GB </Available>
+   <Allocator>            DL </Allocator>
+</Memory>
+
+<Swap>
+       <Size>          33 GB </Size>
+       <Used>          25 GB </Used>
+       <Free>           8 GB </Free>
+</Swap>
+
+<Directories>
+  <current> E:\Abaqus_temp\microstructured-sensor\dataoutput </current> <free>    267 GB </free>   <used>     35 GB </used> 
+     <temp> C:\Users\Administrator\AppData\Local\Temp </temp>    <free>    114 GB </free>
+</Directories>
+
+<Installation>
+</Installation>
+

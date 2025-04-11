@@ -1,0 +1,40 @@
+<Description>
+   ABQcaeK.exe / rank 0 / thread 0  encountered an unhandled exception
+
+</Description>
+
+<Context>
+   CAE
+</Context>
+
+<Callstack>
+  1)  KERNELBASE.dll              RaiseException                          
+  2)  ABQcaeK.exe               unknown                                 
+</Callstack>
+
+<Memory>
+   <Current>            0 GB </Current>
+   <Resident>           0 GB </Resident>
+   <Physical>          31 GB </Physical>
+   <Limit>              0 GB </Limit>
+   <Accessible>        31 GB </Accessible>
+   <Available>         17 GB </Available>
+   <Allocator>            DL </Allocator>
+</Memory>
+
+<Swap>
+       <Size>          33 GB </Size>
+       <Used>          25 GB </Used>
+       <Free>           8 GB </Free>
+</Swap>
+
+<Directories>
+  <current> E:\Abaqus_temp\microstructured-sensor\dataoutput </current> <free>    267 GB </free>   <used>     35 GB </used> 
+     <temp> C:\Users\Administrator\AppData\Local\Temp </temp>    <free>    114 GB </free>
+</Directories>
+
+<Installation>
+     <Version> 2023 6.23-1 </Version>
+       <Build> 2022_09_29-02.11.55 183150 </Build>
+</Installation>
+
