@@ -4,8 +4,7 @@ The sensors designed in this paper mainly include three modules: vision, proximi
 
 Visual Perception Reference：https://github.com/lyuwenyu/RT-DETR.git
 
-Proximity perception reference：https://github.com/lyuwenyu/RT-DETR.git  
-
+Proximity perception reference：https://github.com/shariqfarooq123/LocalBins.git  
 For tactile perception module:
 1, Prepare your dataset and set your file path
 2, Run ./algorithm/train.py
